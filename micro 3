@@ -1,0 +1,48 @@
+Intuition
+we traverse through the both string secret and guess simultaneously and looks if same character at same index increase cow by 1 and if not same then looks the guess element in secret if available then increase the cnt of cow by 1
+
+Approach
+using map to store the frequency of element of secret string and then as we enconter the element which is not same in secret and guess at same index at that time we check the frequency of that element in secret if greater than 1 then increses the frequency of cow by 1 else nothing moves to next index;
+
+we use another loop for checking frequecy coz elements can be jumbled anywhere even after that index.
+
+Complexity
+
+
+Time complexity: O(N) traversed twice
+Space complexity: O(N)
+Code
+
+
+
+class Solution {
+public:
+    string getHint(string secret, string guess) {
+        map<char,int> m;
+        int bull=0;
+        for(int i=0;i<secret.length();i++){
+            if(secret[i]==guess[i]){
+                bull++;
+            }
+            else{
+                m[secret[i]]++;
+            }
+        }
+        int cow=0;
+        
+        for(int i=0;i<secret.length();i++){
+             if(secret[i]==guess[i]){
+                 continue;
+             }
+             else{
+                 if(m[guess[i]]>0){
+                     cow++;
+                     m[guess[i]]-=1;
+                 }
+             }
+        }
+        string ans="";
+        ans+=(to_string(bull)+"A"+to_string(cow)+"B");
+        return ans;
+    }
+};
