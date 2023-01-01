@@ -1,0 +1,66 @@
+Intuition
+here we have to traverse through the vector and when ever we encounter an operator we perform that operation on prev two element;
+that is (previous second element operator prev first element).
+5 6 + =(5+6)
+
+Approach
+we can solve it using vector as well as stack.
+we will start traversing through the vector of string and keep pushing them in the vector or stack , if while traversing we found some operator then {
+store the last element of vector or top element of stack in new variable.
+and pop that element.
+now perform the operation on top of new stack or vector
+and update the top with new value which we got after operation.
+and in the end return the top element of stack.
+also in end only one element will be left there in stack or vector.
+}
+
+Complexity
+Time complexity: O(N) every element is pushed once and poped once the push and pop is performed in o(1);
+Space complexity: O(N)
+
+
+
+
+
+
+
+
+
+Code:
+class Solution {
+public:
+    int evalRPN(vector<string>& tokens) {
+        int ans=0;
+        stack<int> s;
+        for(auto x: tokens){
+            if(x=="+"){
+                int cr=s.top();
+                s.pop();
+                ans=s.top()+cr;
+                s.top()=ans;
+            }
+            else if(x=="*"){
+                 int cr=s.top();
+                s.pop();
+                ans=s.top()*cr;
+                s.top()=ans;
+            }
+            else if(x=="/"){
+                int cr=s.top();
+                s.pop();
+                ans=s.top()/cr;
+                s.top()=ans;
+            }
+            else if(x=="-"){
+                int cr=s.top();
+                s.pop();
+                ans=s.top()-cr;
+                s.top()=ans;
+            }
+            else{
+                s.push(stoi(x));
+            }
+        }
+        return s.top();
+    }
+};
